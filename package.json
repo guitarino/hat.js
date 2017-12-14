@@ -1,0 +1,19 @@
+{
+  "name": "hat",
+  "version": "0.1.0",
+  "description": "... tbd",
+  "main": "./build/hat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guitarino/hat.git"
+  },
+  "author": "Kirill Shestakov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guitarino/hat/issues"
+  },
+  "homepage": "https://github.com/guitarino/hat#readme"
+}

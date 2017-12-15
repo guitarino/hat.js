@@ -6,6 +6,7 @@ const PatternProperty = Symbol();
 export function addCommentControl(path, node, controls, separatorRegExp) {
   const split = node.textContent.split(separatorRegExp);
   if (split.length > 1) {
+    node.textContent = '';
     controls.push(new CommentControl(
       path,
       split

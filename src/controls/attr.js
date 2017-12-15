@@ -14,6 +14,7 @@ export function addAttrControl(path, node, controls, separatorRegExp) {
     if (attr.value) {
       const split = attr.value.split(separatorRegExp);
       if (split.length > 1) {
+        node.removeAttribute(attr.name);
         controls.push(new AttrValueControl(
           path,
           attr.name,

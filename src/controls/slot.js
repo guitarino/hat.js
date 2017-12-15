@@ -74,4 +74,8 @@ export class SlotControl {
       this[AfterPathProperty]
     ]
   }
+
+  update() {
+    // do nothing
+  }
 }

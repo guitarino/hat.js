@@ -7,7 +7,7 @@ const TemplateProperty = Symbol();
 const SlotsProperty = Symbol();
 
 const NodeTemplate = new WeakMap();
-const TemplatePaths = new WeakMap();
+const PathNodes = new WeakMap();
 
 export class HatDOM {
   constructor(template, slots) {
@@ -44,10 +44,14 @@ export class HatDOM {
       throw new Error('cannot render; both nodes should be under the same parent first before second');
     }
 
+    let pathNodes = PathNodes.get(element1);
+
     if ((
       NodeTemplate.get(element1) !== template
     ) || (
       NodeTemplate.get(element2) !== template
+    ) || (
+      !pathNodes
     )) {
       NodeTemplate.set(element1, template);
       NodeTemplate.set(element2, template);
@@ -66,18 +70,23 @@ export class HatDOM {
         })
       });
 
-      const pathNodes = {};
+      pathNodes = {};
       iterateDeepChildren(clone, (node, i) => {
         if (~paths.indexOf(i)) {
           pathNodes[i] = node;
         }
       });
 
+      PathNodes.set(element1, pathNodes);
       console.log('@pathNodes', pathNodes);
 
       while (clone.lastChild) {
         insertAfter(element1, clone.lastChild);
       }
     }
+
+    template.getControls().forEach((control) => {
+      control.update(pathNodes, this[SlotsProperty]);
+    });
   }
 }

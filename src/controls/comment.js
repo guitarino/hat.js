@@ -22,4 +22,12 @@ export class CommentControl {
       this[PathProperty]
     ]
   }
+
+  update(pathNodes, slots) {
+    const pattern = this[PatternProperty];
+    const comment = pathNodes[this[PathProperty]];
+    comment.textContent = pattern.map((txtSnippet, i) => {
+      return (i%2===1) ? slots[txtSnippet] : txtSnippet;
+    }).join('');
+  }
 }

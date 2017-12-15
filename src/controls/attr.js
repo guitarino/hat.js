@@ -30,4 +30,13 @@ export class AttrValueControl {
       this[PathProperty]
     ]
   }
+
+  update(pathNodes, slots) {
+    const attrName = this[AttrNameProperty];
+    const pattern = this[PatternProperty];
+    const node = pathNodes[this[PathProperty]];
+    node.setAttribute(attrName, pattern.map((txtSnippet, i) => {
+      return (i%2===1) ? slots[txtSnippet] : txtSnippet;
+    }).join(''));
+  }
 }

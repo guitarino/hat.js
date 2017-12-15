@@ -1,5 +1,4 @@
 export function handleAttrTextUpdate(pathNode, attrName, pattern, slots) {
-  console.log(attrName);
   if (pathNode.hasOwnProperty(attrName)) {
     pathNode[attrName] = null;
   }
@@ -10,7 +9,6 @@ export function handleAttrTextUpdate(pathNode, attrName, pattern, slots) {
 }
 
 export function handleAttrBooleanUpdate(pathNode, attrName, middle) {
-  console.log(attrName);
   if (pathNode.hasOwnProperty(attrName)) {
     pathNode[attrName] = null;
   }

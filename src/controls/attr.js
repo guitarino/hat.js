@@ -24,4 +24,10 @@ export class AttrValueControl {
     this[AttrNameProperty] = attrName;
     this[PatternProperty] = pattern;
   }
+
+  getPaths() {
+    return [
+      this[PathProperty]
+    ]
+  }
 }

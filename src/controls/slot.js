@@ -1,47 +1,77 @@
-const PathProperty = Symbol();
-const ArgProperty = Symbol();
+const BeforePathProperty = Symbol();
+const AfterPathProperty = Symbol();
+const SlotArgProperty = Symbol();
 
-const IsFollowedBySlot = new WeakMap();
-const IsPrecededBySlot = new WeakMap();
-const Arg = new WeakMap();
+const SlotControlIgnore = new WeakMap();
+const SlotControlObjects = new WeakMap();
 
 export function addSlotControl(path, node, controls, separatorRegExp) {
-  if (IsFollowedBySlot.has(node)) {
-    controls.push(new SlotControl(
-      path,
-      Arg.get(node)
-    ));
-    IsFollowedBySlot.delete(node);
-    Arg.delete(node);
+  if (SlotControlIgnore.has(node)) {
+    SlotControlIgnore.delete(node);
   }
-  else if (IsPrecededBySlot.has(node)) {
-    IsFollowedBySlot.delete(node);
+
+  else if (SlotControlObjects.has(node)) {
+    const slotObject = SlotControlObjects.get(node);
+    SlotControlObjects.delete(node);
+
+    if (slotObject.before === node) {
+      slotObject.before = path;
+    }
+
+    else if (slotObject.after === node) {
+      slotObject.after = path;
+      controls.push(new SlotControl(
+        slotObject.before,
+        slotObject.after,
+        slotObject.slotArg
+      ));
+    }
   }
+
   else {
+    const parent = node.parentNode;
     const split = node.textContent.split(separatorRegExp);
     node.textContent = split[0];
+
     for (var j=1; j<split.length; j++) {
-      let newNode;
-      if (j%2==0) {
-        newNode = document.createTextNode(split[j]);
-        IsPrecededBySlot.set(newNode, true);
+      if (j%2==1) {
+        let before = document.createTextNode('');
+        let after = document.createTextNode('');
+
+        const slotObject = {
+          before: before,
+          after: after,
+          slotArg: split[j]
+        };
+
+        SlotControlObjects.set(before, slotObject);
+        SlotControlObjects.set(after, slotObject);
+
+        parent.insertBefore(after, node.nextSibling);
+        parent.insertBefore(before, after);
       }
+
       else {
-        newNode = document.createTextNode('');
-        IsFollowedBySlot.set(newNode, true);
-        Arg.set(newNode, split[j]);
+        let newNode = document.createTextNode(split[j]);
+        SlotControlIgnore.set(newNode, true);
+
+        parent.insertBefore(newNode, node.nextSibling);
       }
-      node.parentNode.insertBefore(
-        newNode,
-        node.nextSibling
-      );
     }
   }
 }
 
 export class SlotControl {
-  constructor(path, arg) {
-    this[PathProperty] = path;
-    this[ArgProperty] = arg;
+  constructor(beforePath, afterPath, slotArg) {
+    this[BeforePathProperty] = beforePath;
+    this[AfterPathProperty] = afterPath;
+    this[SlotArgProperty] = slotArg;
+  }
+
+  getPaths() {
+    return [
+      this[BeforePathProperty],
+      this[AfterPathProperty]
+    ]
   }
 }

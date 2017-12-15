@@ -16,4 +16,10 @@ export class CommentControl {
     this[PathProperty] = path;
     this[PatternProperty] = pattern;
   }
+
+  getPaths() {
+    return [
+      this[PathProperty]
+    ]
+  }
 }

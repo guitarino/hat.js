@@ -38,3 +38,7 @@ export function createDomFromHtml(html) {
   }
   return fragParent;
 }
+
+export function insertAfter(element, newElement) {
+  element.parentNode.insertBefore(newElement, element.nextSibling);
+}

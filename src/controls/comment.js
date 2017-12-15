@@ -1,3 +1,5 @@
+import { handleCommentTextUpdate } from './comment.handlers';
+
 const PathProperty = Symbol();
 const PatternProperty = Symbol();
 
@@ -25,9 +27,7 @@ export class CommentControl {
 
   update(pathNodes, slots) {
     const pattern = this[PatternProperty];
-    const comment = pathNodes[this[PathProperty]];
-    comment.textContent = pattern.map((txtSnippet, i) => {
-      return (i%2===1) ? slots[txtSnippet] : txtSnippet;
-    }).join('');
+    const pathNode = pathNodes[this[PathProperty]];
+    handleCommentTextUpdate(pathNode, pattern, slots);
   }
 }

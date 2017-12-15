@@ -6,11 +6,29 @@ const className = 'className';
 const textContent = 'textContent';
 const commentContent = 'commentContent';
 
-const tmpl = hat`
-  <div class='hat__className--start hat__className--${className} hat__className--end'>
-    Text content: ${textContent}
-    <!-- Some comment content: ${commentContent} -->
-  </div>
-`;
+function tmpl({ className, textContent, something, commentContent }) {
+  return hat`
+    <div class='hat__className--start hat__className--${className} hat__className--end'>
+      Text content: ${textContent}
+      <div id='testdiv' something='${something}'>Exciting</div>
+      <!-- Some comment content: ${commentContent} -->
+    </div>
+  `;
+}
 
-tmpl.render(document.body);
+tmpl({
+  className: 'className',
+  textContent: 'textContent',
+  commentContent: 'commentContent',
+  something: true
+}).render(document.body);
+
+
+setTimeout(() => {
+  tmpl({
+    className: 'className1',
+    textContent: 'textContent2',
+    commentContent: 'commentContent3',
+    something: () => 'test'
+  }).render(document.body);
+}, 2000);

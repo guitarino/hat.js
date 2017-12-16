@@ -1,5 +1,4 @@
-const doc = document.implementation.createDocument('http://www.w3.org/1999/xhtml', 'html', null);
-const div = doc.createElement('div');
+const div = document.createElement('div');
 
 export function getNextElement(currentElement) {
   const firstChoice = (

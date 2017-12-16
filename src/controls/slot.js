@@ -75,7 +75,8 @@ export class SlotControl {
     ]
   }
 
-  update() {
-    // do nothing
+  update(pathNodes, slots) {
+    const before = pathNodes[this[BeforePathProperty]];
+    const after = pathNodes[this[AfterPathProperty]];
   }
 }

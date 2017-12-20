@@ -1,39 +1,22 @@
-import { hat, withKey } from '../src/hat';
+import { hat } from '../src/hat';
 
 const root = document.getElementById('root');
 
-const className = 'className';
-const textContent = 'textContent';
-const commentContent = 'commentContent';
-
-function tmpl({ className, textContent, something, commentContent }) {
+function rootTemplate({ input }) {
   return hat`
-    <div class='hat__className--start hat__className--${className} hat__className--end'>
-      Text content: ${textContent}
-      Same text content: ${textContent}
-      <div>Kirill</div>
-      <div id='testdiv' something=${something}>Exciting</div>
-      <!-- Some comment content: ${commentContent} -->
-    </div>
+    <input id='input' type='text' value=${input} />
+    <div class='value'>${
+      !input ? hat`
+        <span style='color: red; font-weight: bold;'>
+          Please, start typing to see the result
+        </span>
+      ` : input
+    }</div>
   `;
 }
 
-tmpl({
-  className: 'className',
-  textContent: hat`<span style='color: green'>${[
-    withKey(0, 'test0'),
-    withKey(1, 'test1'),
-    withKey(2, 'test2'),
-  ]}</span>`,
-  commentContent: 'commentContent',
-  something: 'great!'
-}).render(document.body);
-
-setTimeout(() => {
-  tmpl({
-    className: 'className',
-    textContent: hat`<span style='color: red'>test</span>`,
-    commentContent: 'commentContent',
-    something: { object: 'great!' }
-  }).render(document.body);
-}, 2000);
+rootTemplate({ input: '' }).render(root);
+const input = document.getElementById('input');
+input.addEventListener('input', () => {
+  rootTemplate({ input: input.value }).render(root);
+});

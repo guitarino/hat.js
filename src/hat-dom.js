@@ -1,6 +1,7 @@
 import {
   iterateDeepChildren,
-  insertAfter
+  insertAfter,
+  getCommonParent
 } from './utilities/dom';
 
 import { createTemplate } from './template';
@@ -37,6 +38,7 @@ export class HatDOM {
 
     if (!TemplateMap[parentTagName]) {
       TemplateMap[parentTagName] = createTemplate(snippets, parentTagName);
+      console.log('Create template', parentTagName, TemplateMap[parentTagName]);
     }
 
     return TemplateMap[parentTagName];
@@ -60,16 +62,8 @@ export class HatDOM {
   }
 
   renderBetween(element1, element2) {
-    const parent = element1.parentNode;
+    const parent = getCommonParent(element1, element2).parent;
 
-    const siblings = [ ...parent.childNodes ];
-    const index1 = siblings.indexOf(element1);
-    const index2 = siblings.indexOf(element2);
-
-    if (!(~index1 && ~index2 && index1 < index2)) {
-      throw new Error('cannot render; both nodes should be under the same parent first before second');
-    }
-    
     const template = this.getTemplate(parent);
 
     let pathNodes = PathNodes.get(element1);
@@ -106,7 +100,6 @@ export class HatDOM {
       });
 
       PathNodes.set(element1, pathNodes);
-      console.log('@pathNodes', pathNodes);
 
       while (clone.lastChild) {
         insertAfter(element1, clone.lastChild);
@@ -117,4 +110,22 @@ export class HatDOM {
       control.update(pathNodes, this[SlotsProperty]);
     });
   }
+}
+
+export function clearHatDOM(element1, element2) {
+  const isHatDOM = (
+    NodeTemplate.delete(element1) &&
+    NodeTemplate.delete(element2) &&
+    PathNodes.delete(element1)
+  );
+
+  if (isHatDOM) {
+    const parent = getCommonParent(element1, element2).parent;
+
+    while (element1.nextSibling !== element2) {
+      parent.removeChild(element1.nextSibling);
+    }
+  }
+
+  return isHatDOM;
 }

@@ -1,4 +1,5 @@
 import { HatDOM } from './hat-dom';
+import { withKey } from './keyedSlot';
 
 export function hat(snippets, ...slots) {
   return new HatDOM(
@@ -6,3 +7,5 @@ export function hat(snippets, ...slots) {
     slots
   );
 }
+
+export { withKey };

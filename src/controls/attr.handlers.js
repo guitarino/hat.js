@@ -44,6 +44,8 @@ export function handleAttrObjectUpdate(pathNode, attrName, object) {
   if (pathNode[attrName] !== object) {
     pathNode[attrName] = object;
   }
+  
+  const currentAttribute = pathNode.getAttribute(attrName);
   if (currentAttribute !== null) {
     pathNode.removeAttribute(attrName);
   }

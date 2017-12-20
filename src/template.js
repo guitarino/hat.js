@@ -32,7 +32,7 @@ export class Template {
 const Separator = createSeparator();
 const SeparatorIdRegExp = createIdSeparatorRegExp(Separator);
 
-export function createTemplate(snippets) {
+export function createTemplate(snippets, parentTagName) {
   const slotLength = snippets.length - 1;
   
   let htmlContent = '';
@@ -43,7 +43,7 @@ export function createTemplate(snippets) {
   
   htmlContent += snippets[snippets.length - 1];
 
-  const dom = createDomFromHtml(htmlContent);
+  const dom = createDomFromHtml(htmlContent, parentTagName);
   const controls = [];
 
   iterateDeepChildren(dom, (node, i) => {

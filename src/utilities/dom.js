@@ -1,5 +1,3 @@
-const div = document.createElement('div');
-
 export function getNextElement(currentElement) {
   const firstChoice = (
     currentElement.firstChild ||
@@ -29,13 +27,10 @@ export function iterateDeepChildren(parent, fun) {
   }
 }
 
-export function createDomFromHtml(html) {
-  div.innerHTML = html;
-  const fragParent = document.createElement('div');
-  while (div.firstChild) {
-    fragParent.appendChild(div.firstChild);
-  }
-  return fragParent;
+export function createDomFromHtml(html, parent) {
+  const parentElement = document.createElement(parent);
+  parentElement.innerHTML = html;
+  return parentElement;
 }
 
 export function insertAfter(element, newElement) {

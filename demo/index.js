@@ -10,8 +10,8 @@ function tmpl({ className, textContent, something, commentContent }) {
   return hat`
     <div class='hat__className--start hat__className--${className} hat__className--end'>
       Text content: ${textContent}
-      <td>Kirill</td>
-      <div id='testdiv' something=${something}>Exciting</div>
+      <div>Kirill</div>
+      <div id='testdiv' someThing=${something}>Exciting</div>
       <!-- Some comment content: ${commentContent} -->
     </div>
   `;

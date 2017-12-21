@@ -6,7 +6,7 @@ function random(max) {
   return Math.round(Math.random() * max);
 }
 
-function rootTemplate({ input }) {
+function rootTemplate({ input, attrs }) {
   return hat`
     <input id='input' type='text' value=${input} />
     <div class='value'>${
@@ -15,7 +15,7 @@ function rootTemplate({ input }) {
           Please, start typing to see the result
         </span>
       ` : hat`
-        <div style='color: rgb(${random(255)}, ${random(255)}, ${random(255)});'>
+        <div id='result' ${attrs}>
           ${input}
         </div>
       `
@@ -26,5 +26,13 @@ function rootTemplate({ input }) {
 rootTemplate({ input: '' }).render(root);
 const input = document.getElementById('input');
 input.addEventListener('input', () => {
-  rootTemplate({ input: input.value }).render(root);
+  const number = Math.random();
+  const attrs = {
+    style: `color: rgb(${random(255)}, ${random(255)}, ${random(255)});`
+  };
+  if (number > 0.5) {
+    attrs.number = number;
+    attrs.obj = { is: 'hello' };
+  }
+  rootTemplate({ input: input.value, attrs }).render(root);
 });

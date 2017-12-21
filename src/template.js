@@ -10,6 +10,7 @@ import {
 import { addSlotControl } from './controls/slot';
 import { addCommentControl } from './controls/comment';
 import { addAttrControl } from './controls/attr';
+import { addAttrBagControl } from './controls/attrBag';
 
 const DomProperty = Symbol();
 const ControlsProperty = Symbol();
@@ -54,6 +55,7 @@ export function createTemplate(snippets, parentTagName) {
       addCommentControl(i, node, controls, SeparatorIdRegExp);
     }
     else if (node.nodeType === Node.ELEMENT_NODE) {
+      addAttrBagControl(i, node, controls, SeparatorIdRegExp);
       addAttrControl(i, node, controls, SeparatorIdRegExp);
     }
   });

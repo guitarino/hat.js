@@ -1,6 +1,6 @@
 import { Symbol } from './symbol';
 
-export function createPrivate() {
+export function createPrivacy() {
   const priv_key = {};
   const priv_prop = Symbol();
 

@@ -1,7 +1,7 @@
-import { createPrivate } from './privacy';
+import { createPrivacy } from './privacy';
 import { Symbol } from './symbol';
 
-const privacy = createPrivate();
+const privacy = createPrivacy();
 
 function WeakMap() {
   if (!(this instanceof WeakMap)) {

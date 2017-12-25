@@ -26,6 +26,7 @@ function rootTemplate({ input, attrs }) {
 rootTemplate({ input: '' }).render(root);
 const input = document.getElementById('input');
 input.addEventListener('input', () => {
+  const inputStart = document.getElementById('input');
   const number = Math.random();
   const attrs = {
     style: `color: rgb(${random(255)}, ${random(255)}, ${random(255)});`
@@ -35,4 +36,9 @@ input.addEventListener('input', () => {
     attrs.obj = { is: 'hello' };
   }
   rootTemplate({ input: input.value, attrs }).render(root);
+  const inputEnd = document.getElementById('input');
+
+  if (inputStart !== inputEnd) {
+    console.log('something wrong');
+  }
 });

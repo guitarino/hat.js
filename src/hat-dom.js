@@ -97,11 +97,14 @@ export class HatDOM {
       });
 
       pathNodes = {};
+      let counter = 0;
       iterateDeepChildren(clone, (node, i) => {
+        console.log('b' + counter++, node.outerHTML || node.textContent);
         if (~paths.indexOf(i)) {
           pathNodes[i] = node;
         }
       });
+      console.log(pathNodes);
 
       PathNodes.set(element1, pathNodes);
 

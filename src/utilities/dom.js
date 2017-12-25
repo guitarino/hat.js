@@ -16,6 +16,39 @@ export function getNextElement(currentElement) {
   return parent && nextSibling;
 }
 
+export function nodeDeepClone(node) {
+  let clone = nodeShallowClone(node);
+  if (!node.firstChild) {
+    return clone;
+  }
+  const childNodes = node.childNodes;
+  for (var i=0; i<childNodes.length; i++) {
+    const childNode = childNodes[i];
+    clone.appendChild(
+      nodeDeepClone(childNode)
+    );
+  }
+  return clone;
+}
+
+export function nodeShallowClone(node) {
+  let newNode;
+  if (node.nodeType === Node.TEXT_NODE) {
+    newNode = document.createTextNode(node.textContent);
+  }
+  else if(node.nodeType === Node.COMMENT_NODE) {
+    newNode = new Comment(node.textContent);
+  }
+  else if(node.nodeType === Node.ELEMENT_NODE) {
+    newNode = document.createElement(node.tagName);
+    for (var j=0; j<node.attributes.length; j++) {
+      const attr = node.attributes[j];
+      newNode.setAttribute(attr.name, attr.value);
+    }
+  }
+  return newNode;
+}
+
 export function iterateDeepChildren(parent, fun) {
   let i = 0;
   let currentElement = parent;
@@ -40,7 +73,7 @@ export function insertAfter(element, newElement) {
 export function getCommonParent(before, after) {
   const parent = before.parentNode;
 
-  const siblings = [ ...parent.childNodes ];
+  const siblings = [].slice.call(parent.childNodes);
   const indexBefore = siblings.indexOf(before);
   const indexAfter = siblings.indexOf(after);
 

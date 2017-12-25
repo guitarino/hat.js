@@ -4,6 +4,7 @@ import {
   createIdSeparatorRegExp
 } from './utilities/namespace';
 import {
+  nodeDeepClone,
   iterateDeepChildren,
   createDomFromHtml
 } from './utilities/dom';
@@ -23,7 +24,7 @@ export class Template {
   }
 
   getClone() {
-    return this[DomProperty].cloneNode(true);
+    return nodeDeepClone(this[DomProperty]);
   }
 
   getControls() {
@@ -47,8 +48,10 @@ export function createTemplate(snippets, parentTagName) {
 
   const dom = createDomFromHtml(htmlContent, parentTagName);
   const controls = [];
+  let counter = 0;
 
   iterateDeepChildren(dom, (node, i) => {
+    console.log('a' + counter++, node.outerHTML || node.textContent);
     if (node.nodeType === Node.TEXT_NODE) {
       addSlotControl(i, node, controls, SeparatorIdRegExp);
     }

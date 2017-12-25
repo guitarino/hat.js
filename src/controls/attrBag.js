@@ -1,4 +1,5 @@
 import { handleAttrBagUpdate } from './attrBag.handlers';
+import { Symbol } from '../utilities/symbol';
 
 const PathProperty = Symbol();
 const SlotArgProperty = Symbol();

@@ -3,6 +3,7 @@ import {
   handleAttrTextUpdate,
   handleAttrBooleanUpdate
 } from './attr.handlers';
+import { Symbol } from '../utilities/symbol';
 
 const PathProperty = Symbol();
 const AttrNameProperty = Symbol();

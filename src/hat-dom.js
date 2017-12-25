@@ -3,13 +3,15 @@ import {
   insertAfter,
   getCommonParent
 } from './utilities/dom';
-
 import { createTemplate } from './template';
+import { Symbol } from './utilities/symbol';
+import { WeakMap } from './utilities/weakmap';
 
+const SnipDelimiter = '<!&_snipdel' + Math.random() + '>';
 const SnippetsProperty = Symbol();
 const SlotsProperty = Symbol();
 
-const TemplateMaps = new WeakMap();
+const TemplateMaps = {};
 const NodeTemplate = new WeakMap();
 const PathNodes = new WeakMap();
 
@@ -28,12 +30,14 @@ export class HatDOM {
     );
 
     const snippets = this[SnippetsProperty];
+    const snipText = getSnipText(snippets);
     
-    let TemplateMap = TemplateMaps.get(snippets);
+    let TemplateMap = TemplateMaps[snipText];
 
     if (!TemplateMap) {
       TemplateMap = {};
-      TemplateMaps.set(snippets, TemplateMap);
+      TemplateMaps[snipText] = TemplateMap;
+      console.log(TemplateMaps);
     }
 
     if (!TemplateMap[parentTagName]) {
@@ -128,4 +132,13 @@ export function clearHatDOM(element1, element2) {
   }
 
   return isHatDOM;
+}
+
+function getSnipText(snippets) {
+  let result = '';
+  for (var i=0; i<snippets.length-1; i++) {
+    result += snippets[i] + SnipDelimiter + i;
+  }
+  result += snippets[snippets.length-1];
+  return result;
 }

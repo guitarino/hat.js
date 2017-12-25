@@ -5,6 +5,8 @@ import {
   removeBetween
 } from '../utilities/dom';
 import { handleSlot } from './slot.handlers';
+import { Symbol } from '../utilities/symbol';
+import { WeakMap } from '../utilities/weakmap';
 
 const GeneraltedKeyPrefix = 'HatGeneratedKey';
 

@@ -3,6 +3,7 @@ import {
   handleAttrObjectUpdate,
   handleAttrTextUpdate
 } from './attr.handlers';
+import { WeakMap } from '../utilities/weakmap';
 
 const CurrentAttributeBags = new WeakMap();
 

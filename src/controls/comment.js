@@ -1,4 +1,5 @@
 import { handleCommentTextUpdate } from './comment.handlers';
+import { Symbol } from '../utilities/symbol';
 
 const PathProperty = Symbol();
 const PatternProperty = Symbol();

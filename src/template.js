@@ -11,6 +11,7 @@ import { addSlotControl } from './controls/slot';
 import { addCommentControl } from './controls/comment';
 import { addAttrControl } from './controls/attr';
 import { addAttrBagControl } from './controls/attrBag';
+import { Symbol } from './utilities/symbol';
 
 const DomProperty = Symbol();
 const ControlsProperty = Symbol();

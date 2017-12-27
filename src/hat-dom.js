@@ -57,8 +57,9 @@ export class HatDOM {
     ) || (
       !element2 || NodeTemplate.get(element2) !== template
     )) {
-      element1 = document.createTextNode('');
-      element2 = document.createTextNode('');
+      element1 = document.createComment('');
+      element2 = document.createComment('');
+
       parent.insertBefore(element1, parent.firstChild);
       parent.appendChild(element2);
     }

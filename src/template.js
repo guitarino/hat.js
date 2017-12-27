@@ -52,7 +52,10 @@ export function createTemplate(snippets, parentTagName) {
 
   iterateDeepChildren(dom, (node, i) => {
     console.log('a' + counter++, node.outerHTML || node.textContent);
-    if (node.nodeType === Node.TEXT_NODE) {
+    if (node.nodeType === Node.TEXT_NODE || (
+      node.nodeType === Node.COMMENT_NODE &&
+      node.treatAsTextNode
+    )) {
       addSlotControl(i, node, controls, SeparatorIdRegExp);
     }
     else if (node.nodeType === Node.COMMENT_NODE) {

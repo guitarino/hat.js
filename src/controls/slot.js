@@ -46,10 +46,14 @@ export function addSlotControl(path, node, controls, separatorRegExp) {
     const split = node.textContent.split(separatorRegExp);
     node.textContent = split[0];
 
+    let lastNode = node.nextSibling;
     for (var j=1; j<split.length; j++) {
       if (j%2==1) {
-        let before = document.createTextNode('');
-        let after = document.createTextNode('');
+        let before = document.createComment('');
+        let after = document.createComment('');
+
+        before.treatAsTextNode = true;
+        after.treatAsTextNode = true;
 
         const slotObject = {
           before: before,
@@ -60,15 +64,17 @@ export function addSlotControl(path, node, controls, separatorRegExp) {
         SlotControlObjects.set(before, slotObject);
         SlotControlObjects.set(after, slotObject);
 
-        parent.insertBefore(after, node.nextSibling);
+        parent.insertBefore(after, lastNode);
         parent.insertBefore(before, after);
+
+        lastNode = after.nextSibling;
       }
 
       else {
         let newNode = document.createTextNode(split[j]);
         SlotControlIgnore.set(newNode, true);
 
-        parent.insertBefore(newNode, node.nextSibling);
+        parent.insertBefore(newNode, lastNode);
       }
     }
   }
@@ -172,8 +178,9 @@ export class SlotControl {
 
       // Otherwise, if no past slots existed, create before and after nodes
       else {
-        beforeSlot = document.createTextNode('');
-        afterSlot = document.createTextNode('');
+        beforeSlot = document.createComment('');
+        afterSlot = document.createComment('');
+
         insertAfter(start, beforeSlot);
         insertAfter(beforeSlot, afterSlot);
       }

@@ -37,7 +37,7 @@ export function nodeShallowClone(node) {
     newNode = document.createTextNode(node.textContent);
   }
   else if(node.nodeType === Node.COMMENT_NODE) {
-    newNode = new Comment(node.textContent);
+    newNode = document.createComment(node.textContent);
   }
   else if(node.nodeType === Node.ELEMENT_NODE) {
     newNode = document.createElement(node.tagName);

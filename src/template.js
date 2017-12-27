@@ -54,7 +54,7 @@ export function createTemplate(snippets, parentTagName) {
     console.log('a' + counter++, node.outerHTML || node.textContent);
     if (node.nodeType === Node.TEXT_NODE || (
       node.nodeType === Node.COMMENT_NODE &&
-      node.treatAsTextNode
+      node.partOfSlotControl
     )) {
       addSlotControl(i, node, controls, SeparatorIdRegExp);
     }

@@ -52,8 +52,8 @@ export function addSlotControl(path, node, controls, separatorRegExp) {
         let before = document.createComment('');
         let after = document.createComment('');
 
-        before.treatAsTextNode = true;
-        after.treatAsTextNode = true;
+        before.partOfSlotControl = true;
+        after.partOfSlotControl = true;
 
         const slotObject = {
           before: before,

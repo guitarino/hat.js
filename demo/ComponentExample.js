@@ -23,6 +23,9 @@ import Icon from '';
 // For example, maybe it's better to use a state machine. Hence, perhaps just
 // using `this.props` would be sufficient. If so, `willGetProps` will be redundant.
 // Still not sure though.
+// - React provides `this.state` and it's kind of the missing link that
+//   ties everything together and makes React a framework rather than a library.
+//   It might be a good idea to have an opinionated way of handling internal state.
 
 export const DefaultButton = hat(class extends Component {
   constructor() {

@@ -70,9 +70,9 @@ export const DefaultButton = hat(class extends Component {
     `
   }
 
-  willGetProps() {
-    console.log('willGetProps');
-  }
+  // willGetProps() {
+  //   console.log('willGetProps');
+  // }
 
   willRender() {
     console.log('willRender');

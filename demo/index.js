@@ -23,7 +23,18 @@ function rootTemplate({ input, attrs }) {
   `;
 }
 
+function styleTemplate({ attrs }) {
+  return hat`
+    <style id='root-style'>
+      #static {
+        ${ attrs && attrs.style }
+      }
+    </style>
+  `
+}
+
 rootTemplate({ input: '' }).render(root);
+styleTemplate({}).renderOnceUnder(document.head);
 const input = document.getElementById('input');
 input.addEventListener('input', () => {
   const inputStart = document.getElementById('input');
@@ -36,6 +47,7 @@ input.addEventListener('input', () => {
     attrs.obj = { is: 'hello' };
   }
   rootTemplate({ input: input.value, attrs }).render(root);
+  styleTemplate({ attrs }).renderOnceUnder(document.head);
   const inputEnd = document.getElementById('input');
 
   if (inputStart !== inputEnd) {

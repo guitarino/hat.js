@@ -118,6 +118,42 @@ export class HatDOM {
       control.update(pathNodes, this[SlotsProperty]);
     });
   }
+
+  renderOnceUnder(parent) {
+    const template = this.getTemplate(parent);
+
+    let element1;
+    let element2;
+    let currentElement = parent.firstChild;
+
+    while(currentElement && !(element1 && element2)) {
+      if (currentElement && NodeTemplate.get(currentElement) === template) {
+        if (!element1) {
+          element1 = currentElement;
+        }
+        else if(!element2) {
+          element2 = currentElement;
+        }
+      }
+      currentElement = currentElement.nextSibling;
+    }
+
+    var noElements = !element1 || !element2;
+
+    if (!element1) {
+      element1 = document.createComment('');
+    }
+    if (!element2) {
+      element2 = document.createComment('');
+    }
+
+    if (noElements) {
+      parent.appendChild(element1);
+      parent.appendChild(element2);
+    }
+
+    return this.renderBetween(element1, element2);
+  }
 }
 
 export function clearHatDOM(element1, element2) {

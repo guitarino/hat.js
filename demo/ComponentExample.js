@@ -16,7 +16,7 @@ import Icon from '';
 // hat`<some-html>${ DefaultButton(props) }</some-html>`
 
 // We would also like to provide `hatParentNode` and `hatBoundNodes`
-// properties in case the user would like to do something with those.
+// properties in case the user wants to know where the component is.
 
 // Is internal state important? Not sure. The user should potentially
 // be encouraged to create any abstraction they want over top of the component.

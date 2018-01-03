@@ -20,8 +20,8 @@ import Icon from '';
 
 // Is internal state important? Not sure. The user should potentially
 // be encouraged to create any abstraction they want over top of the component.
-// For example, maybe it's better to use a state machine.
-// Hence, perhaps just using `this.props` would be sufficient.
+// For example, maybe it's better to use a state machine. Hence, perhaps just
+// using `this.props` would be sufficient. If so, `willGetProps` will be redundant.
 // Still not sure though.
 
 export const DefaultButton = hat(class extends Component {

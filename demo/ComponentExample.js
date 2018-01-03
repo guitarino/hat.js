@@ -18,6 +18,12 @@ import Icon from '';
 // We would also like to provide `hatParentNode` and `hatBoundNodes`
 // properties in case the user would like to do something with those.
 
+// Is internal state important? Not sure. The user should potentially
+// be encouraged to create any abstraction they want over top of the component.
+// For example, maybe it's better to use a state machine.
+// Hence, perhaps just using `this.props` would be sufficient.
+// Still not sure though.
+
 export const DefaultButton = hat(class extends Component {
   constructor() {
     this.hatParentNode;
